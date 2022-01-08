@@ -1,6 +1,8 @@
 import firebase from 'firebase'
+
 import { ref, onUnmounted } from 'vue'
 
+//establishing connection to firestore/database
 const config = {
   apiKey: 'AIzaSyD9zn6Y0vu_RPjO6ewskRPEFIYsqIKyyUs',
   authDomain: 'register-employee-vue.firebaseapp.com',
@@ -11,30 +13,31 @@ const config = {
 }
 
 const firebaseApp = firebase.initializeApp(config)
-
 const db = firebaseApp.firestore()
-const usersCollection = db.collection('users')
 
-export const createUser = (user) => {
-  return usersCollection.add(user)
+//establishing connection to firebase collection/table
+const hrCollection = db.collection('hr-staff')
+
+export const createHr = (user) => {
+  return hrCollection.add(user)
 }
 
-export const getUser = async (id) => {
-  const user = await usersCollection.doc(id).get()
+export const getHr = async (id) => {
+  const user = await hrCollection.doc(id).get()
   return user.exists ? user.data() : null
 }
 
-export const updateUser = (id, user) => {
-  return usersCollection.doc(id).update(user)
+export const updateHr = (id, user) => {
+  return hrCollection.doc(id).update(user)
 }
 
-export const deleteUser = (id) => {
-  return usersCollection.doc(id).delete()
+export const deleteHr = (id) => {
+  return hrCollection.doc(id).delete()
 }
 
-export const useLoadUsers = () => {
+export const useLoadHrs = () => {
   const users = ref([])
-  const close = usersCollection.onSnapshot((snapshot) => {
+  const close = hrCollection.onSnapshot((snapshot) => {
     users.value = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
   })
   onUnmounted(close)
