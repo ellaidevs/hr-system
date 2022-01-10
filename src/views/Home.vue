@@ -1,15 +1,12 @@
-<template>
-  <UserCreate />
-</template>
+<template>Home</template>
 
 <script>
-// @ is an alias to /src
-import UserCreate from '../components/CreateHrStaff.vue'
+// import CreateHrStaff from '../components/CreateHrStaff.vue'
 
 export default {
   name: 'Home',
   components: {
-    UserCreate,
+    // CreateHrStaff,
   },
 }
 </script>

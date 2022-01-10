@@ -1,11 +1,6 @@
 <template>
   <div class="card card-body mt-4">
     <form @submit.prevent="onSubmit">
-      <div class="form-group">
-        <label>Name</label>
-        <input v-model="form.name" class="form-control" required />
-      </div>
-
       <div class="form-group mt-3">
         <label>Email</label>
         <input
@@ -16,9 +11,19 @@
         />
       </div>
 
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          v-model="form.password"
+          class="form-control"
+          type="password"
+          required
+        />
+      </div>
+
       <div class="form-group mt-3">
         <label>Access</label>
-        <select v-model="form.selectedAccess">
+        <select v-model="form.access">
           <option v-for="access in accessList" v-bind:key="access">
             {{ access }}
           </option>
@@ -29,6 +34,7 @@
         Reset
       </button>
     </form>
+    <!-- <p v-for="user in users" v-bind:key="user">{{ user }}</p> -->
   </div>
 </template>
 
@@ -37,19 +43,20 @@ import { createHr } from '@/firebase'
 import { reactive } from 'vue'
 export default {
   setup() {
-    const form = reactive({ name: '', email: '', selectedAccess: 'senior' })
+    const form = reactive({ password: '', email: '', access: 'senior' })
 
     const onSubmit = async () => {
       await createHr({ ...form })
-      form.name = ''
+      form.password = ''
       form.email = ''
     }
 
     const onReset = () => {
-      form.name = ''
+      form.password = ''
       form.email = ''
-      form.selectedAccess = 'senior'
+      form.access = 'senior'
     }
+
     return { form, onSubmit, onReset }
   },
   data() {
