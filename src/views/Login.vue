@@ -30,7 +30,20 @@ export default {
   },
   methods: {
     login() {
-      const userList = this.users
+      // const userList = this.users
+      // const check = _.userList.forEach((users) => {
+      //   console.log('users', users)
+      // })
+
+      const users = [
+        { user: 'barney', age: 36, active: true },
+        { user: 'fred', age: 40, active: false },
+        { user: 'pebbles', age: 1, active: true },
+      ]
+
+      const newdata = _.find(users, { age: 1, active: true })
+
+      console.log('tesy', newdata)
     },
   },
 }
